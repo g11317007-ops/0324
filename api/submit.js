@@ -56,12 +56,12 @@ module.exports = async function handler(req, res) {
         headers: {
           'Authorization': `Bearer ${process.env.AI_KEY}`,
           'Content-Type': 'application/json',
-          'HTTP-Referer': 'https://vercel.com', // 建議加入以符合 OpenRouter 規範
+          'HTTP-Referer': 'https://vercel.com',
           'X-Title': 'CER Feedback System'
         },
         body: JSON.stringify({
-          // 修正為目前 OpenRouter 穩定的免費模型代號
-          model: 'google/gemma-2-9b-it:free', 
+          // ✅ 替換為最穩定的 Llama 3.1 8B 免費模型
+          model: 'meta-llama/llama-3.1-8b-instruct:free', 
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt }
@@ -72,9 +72,8 @@ module.exports = async function handler(req, res) {
       const aiData = await aiRes.json();
       
       if (aiData.choices && aiData.choices.length > 0) {
-        aiFeedback = aiData.choices[0].message.content; // 成功取得 AI 文字！
+        aiFeedback = aiData.choices[0].message.content; 
       } else {
-        // 如果 OpenRouter 回傳了錯誤訊息，直接顯示出來以便偵錯
         console.error('OpenRouter 回應異常:', aiData);
         const errorMsg = aiData.error ? aiData.error.message : "格式異常";
         aiFeedback = `AI 回饋暫時無法生成（原因：${errorMsg}）。您的答案已成功記錄。`;
@@ -87,6 +86,6 @@ module.exports = async function handler(req, res) {
     aiFeedback = "系統未設定 AI_KEY，無法啟用 AI 助手。";
   }
 
-  // 將資料回傳給你的 index.html
+  // 將資料回傳給前端
   return res.status(200).json({ success: true, data: gasData, aiFeedback: aiFeedback });
 };
