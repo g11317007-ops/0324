@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
+/* (保持你原有的 CSS 不變) */
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
 :root {
@@ -37,7 +38,6 @@ body {
   overflow-x: hidden;
 }
 
-/* === BACKGROUND RADIATION PATTERN === */
 body::before {
   content: '';
   position: fixed;
@@ -51,7 +51,6 @@ body::before {
   z-index: 0;
 }
 
-/* === TOPOGRAPHIC LINES OVERLAY === */
 body::after {
   content: '';
   position: fixed;
@@ -71,417 +70,134 @@ body::after {
   padding: 40px 24px 80px;
 }
 
-/* === HEADER === */
-.header {
-  text-align: center;
-  margin-bottom: 48px;
-  animation: fadeUp 0.8s ease-out;
-}
+.header { text-align: center; margin-bottom: 48px; animation: fadeUp 0.8s ease-out; }
+.header-tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: var(--accent-amber); background: var(--accent-amber-dim); padding: 6px 18px; border-radius: 100px; border: 1px solid rgba(240,165,0,0.2); margin-bottom: 24px; }
+.header h1 { font-family: 'Noto Serif TC', 'Playfair Display', serif; font-weight: 900; font-size: clamp(28px, 5vw, 42px); line-height: 1.3; letter-spacing: -0.5px; background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-amber) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 12px; }
+.header .subtitle { font-size: 15px; color: var(--text-secondary); font-weight: 300; }
 
-.header-tag {
-  display: inline-block;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  color: var(--accent-amber);
-  background: var(--accent-amber-dim);
-  padding: 6px 18px;
-  border-radius: 100px;
-  border: 1px solid rgba(240,165,0,0.2);
-  margin-bottom: 24px;
-}
+.passage-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 36px 32px; margin-bottom: 32px; position: relative; overflow: hidden; animation: fadeUp 0.8s ease-out 0.15s both; }
+.passage-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: linear-gradient(180deg, var(--accent-amber), var(--accent-green)); border-radius: 4px 0 0 4px; }
+.passage-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent-green); margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+.passage-label::before { content: ''; width: 6px; height: 6px; background: var(--accent-green); border-radius: 50%; box-shadow: 0 0 8px var(--accent-green); animation: pulse 2s infinite; }
+.passage-text { font-family: 'Noto Serif TC', serif; font-size: 15.5px; line-height: 2; color: var(--text-primary); text-align: justify; }
+.passage-text p { margin-bottom: 16px; text-indent: 2em; }
+.passage-text p:last-child { margin-bottom: 0; }
 
-.header h1 {
-  font-family: 'Noto Serif TC', 'Playfair Display', serif;
-  font-weight: 900;
-  font-size: clamp(28px, 5vw, 42px);
-  line-height: 1.3;
-  letter-spacing: -0.5px;
-  background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-amber) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: 12px;
-}
+.question-card { background: var(--bg-card-alt); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; margin-bottom: 32px; animation: fadeUp 0.8s ease-out 0.3s both; }
+.question-card .q-icon { width: 44px; height: 44px; background: var(--accent-amber-dim); border: 1px solid rgba(240,165,0,0.25); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 900; font-style: italic; color: var(--accent-amber); margin-bottom: 18px; }
+.question-card .q-text { font-size: 16px; line-height: 1.9; color: var(--text-primary); font-weight: 400; }
+.question-card .q-text strong { color: var(--accent-amber); font-weight: 700; }
 
-.header .subtitle {
-  font-size: 15px;
-  color: var(--text-secondary);
-  font-weight: 300;
-}
-
-/* === PASSAGE CARD === */
-.passage-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 36px 32px;
-  margin-bottom: 32px;
-  position: relative;
-  overflow: hidden;
-  animation: fadeUp 0.8s ease-out 0.15s both;
-}
-
-.passage-card::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0;
-  width: 4px; height: 100%;
-  background: linear-gradient(180deg, var(--accent-amber), var(--accent-green));
-  border-radius: 4px 0 0 4px;
-}
-
-.passage-label {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 2.5px;
-  text-transform: uppercase;
-  color: var(--accent-green);
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.passage-label::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--accent-green);
-  border-radius: 50%;
-  box-shadow: 0 0 8px var(--accent-green);
-  animation: pulse 2s infinite;
-}
-
-.passage-text {
-  font-family: 'Noto Serif TC', serif;
-  font-size: 15.5px;
-  line-height: 2;
-  color: var(--text-primary);
-  text-align: justify;
-}
-
-.passage-text p {
-  margin-bottom: 16px;
-  text-indent: 2em;
-}
-
-.passage-text p:last-child {
-  margin-bottom: 0;
-}
-
-/* === QUESTION CARD === */
-.question-card {
-  background: var(--bg-card-alt);
-  border: 1px solid var(--border);
-  border-radius: var(--radius);
-  padding: 32px;
-  margin-bottom: 32px;
-  animation: fadeUp 0.8s ease-out 0.3s both;
-}
-
-.question-card .q-icon {
-  width: 44px; height: 44px;
-  background: var(--accent-amber-dim);
-  border: 1px solid rgba(240,165,0,0.25);
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Playfair Display', serif;
-  font-size: 22px;
-  font-weight: 900;
-  font-style: italic;
-  color: var(--accent-amber);
-  margin-bottom: 18px;
-}
-
-.question-card .q-text {
-  font-size: 16px;
-  line-height: 1.9;
-  color: var(--text-primary);
-  font-weight: 400;
-}
-
-.question-card .q-text strong {
-  color: var(--accent-amber);
-  font-weight: 700;
-}
-
-/* === CER GUIDE === */
-.cer-guide {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-  margin-bottom: 32px;
-  animation: fadeUp 0.8s ease-out 0.4s both;
-}
-
-@media (max-width: 640px) {
-  .cer-guide { grid-template-columns: 1fr; }
-}
-
-.cer-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 20px 16px;
-  text-align: center;
-  transition: border-color 0.3s, transform 0.3s;
-}
-
-.cer-item:hover {
-  border-color: var(--border-focus);
-  transform: translateY(-2px);
-}
-
-.cer-letter {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  font-weight: 900;
-  margin-bottom: 4px;
-}
-
+.cer-guide { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 32px; animation: fadeUp 0.8s ease-out 0.4s both; }
+@media (max-width: 640px) { .cer-guide { grid-template-columns: 1fr; } }
+.cer-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 20px 16px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+.cer-item:hover { border-color: var(--border-focus); transform: translateY(-2px); }
+.cer-letter { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 900; margin-bottom: 4px; }
 .cer-item:nth-child(1) .cer-letter { color: var(--accent-amber); }
 .cer-item:nth-child(2) .cer-letter { color: var(--accent-green); }
 .cer-item:nth-child(3) .cer-letter { color: #7c8cf8; }
+.cer-label { font-size: 13px; font-weight: 700; letter-spacing: 0.5px; margin-bottom: 6px; }
+.cer-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.6; }
 
-.cer-label {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  margin-bottom: 6px;
-}
-
-.cer-desc {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-/* === RESPONSE SECTION === */
-.response-section {
-  animation: fadeUp 0.8s ease-out 0.5s both;
-}
-
-.response-section label {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-secondary);
-  margin-bottom: 10px;
-}
-
-.textarea-wrap {
-  position: relative;
-  border-radius: var(--radius);
-  background: var(--bg-card);
-  border: 1.5px solid var(--border);
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.textarea-wrap:focus-within {
-  border-color: var(--accent-amber);
-  box-shadow: 0 0 0 3px var(--accent-amber-dim), 0 8px 32px rgba(0,0,0,0.3);
-}
-
-.response-textarea {
-  width: 100%;
-  min-height: 280px;
-  padding: 24px;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: var(--text-primary);
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 15px;
-  line-height: 1.9;
-  resize: vertical;
-}
-
-.response-textarea::placeholder {
-  color: var(--text-muted);
-  font-style: italic;
-}
-
-.textarea-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  border-top: 1px solid var(--border);
-}
-
-.char-count {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-  transition: color 0.3s;
-}
-
+.response-section { animation: fadeUp 0.8s ease-out 0.5s both; }
+.response-section label { display: block; font-size: 14px; font-weight: 500; color: var(--text-secondary); margin-bottom: 10px; }
+.textarea-wrap { position: relative; border-radius: var(--radius); background: var(--bg-card); border: 1.5px solid var(--border); transition: border-color 0.3s, box-shadow 0.3s; }
+.textarea-wrap:focus-within { border-color: var(--accent-amber); box-shadow: 0 0 0 3px var(--accent-amber-dim), 0 8px 32px rgba(0,0,0,0.3); }
+.response-textarea { width: 100%; min-height: 280px; padding: 24px; background: transparent; border: none; outline: none; color: var(--text-primary); font-family: 'Noto Sans TC', sans-serif; font-size: 15px; line-height: 1.9; resize: vertical; }
+.response-textarea::placeholder { color: var(--text-muted); font-style: italic; }
+.textarea-footer { display: flex; justify-content: space-between; align-items: center; padding: 10px 20px; border-top: 1px solid var(--border); }
+.char-count { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); transition: color 0.3s; }
 .char-count.active { color: var(--text-secondary); }
 .char-count.warn { color: var(--accent-amber); }
+.timestamp { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--text-muted); }
 
-.timestamp {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 11px;
-  color: var(--text-muted);
-}
+.student-info { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+@media (max-width: 500px) { .student-info { grid-template-columns: 1fr; } }
+.field-group label { font-size: 12px; color: var(--text-muted); letter-spacing: 0.5px; text-transform: uppercase; font-family: 'JetBrains Mono', monospace; margin-bottom: 6px; }
+.field-input { width: 100%; padding: 12px 16px; background: var(--bg-card); border: 1.5px solid var(--border); border-radius: 8px; color: var(--text-primary); font-family: 'Noto Sans TC', sans-serif; font-size: 14px; outline: none; transition: border-color 0.3s, box-shadow 0.3s; }
+.field-input:focus { border-color: var(--accent-amber); box-shadow: 0 0 0 3px var(--accent-amber-dim); }
 
-/* === STUDENT INFO === */
-.student-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-@media (max-width: 500px) {
-  .student-info { grid-template-columns: 1fr; }
-}
-
-.field-group label {
-  font-size: 12px;
-  color: var(--text-muted);
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  font-family: 'JetBrains Mono', monospace;
-  margin-bottom: 6px;
-}
-
-.field-input {
-  width: 100%;
-  padding: 12px 16px;
-  background: var(--bg-card);
-  border: 1.5px solid var(--border);
-  border-radius: 8px;
-  color: var(--text-primary);
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 14px;
-  outline: none;
-  transition: border-color 0.3s, box-shadow 0.3s;
-}
-
-.field-input:focus {
-  border-color: var(--accent-amber);
-  box-shadow: 0 0 0 3px var(--accent-amber-dim);
-}
-
-/* === SUBMIT BUTTON === */
-.submit-row {
-  margin-top: 24px;
-  display: flex;
-  gap: 12px;
-  align-items: center;
-}
-
-.btn-submit {
-  flex: 1;
-  padding: 16px 32px;
-  background: linear-gradient(135deg, var(--accent-amber), #e09100);
-  color: var(--bg-deep);
-  font-family: 'Noto Sans TC', sans-serif;
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-
-.btn-submit::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%);
-  transform: translateX(-100%);
-  transition: transform 0.5s;
-}
-
+.submit-row { margin-top: 24px; display: flex; gap: 12px; align-items: center; }
+.btn-submit { flex: 1; padding: 16px 32px; background: linear-gradient(135deg, var(--accent-amber), #e09100); color: var(--bg-deep); font-family: 'Noto Sans TC', sans-serif; font-size: 16px; font-weight: 700; letter-spacing: 1px; border: none; border-radius: 10px; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s; position: relative; overflow: hidden; }
+.btn-submit::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.15) 50%, transparent 60%); transform: translateX(-100%); transition: transform 0.5s; }
 .btn-submit:hover::after { transform: translateX(100%); }
 .btn-submit:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(240,165,0,0.3); }
 .btn-submit:active { transform: translateY(0); }
 .btn-submit:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
 
-/* === STATUS === */
-.status-msg {
-  margin-top: 16px;
-  padding: 14px 20px;
-  border-radius: 10px;
-  font-size: 14px;
-  line-height: 1.6;
-  display: none;
-  animation: fadeUp 0.4s ease-out;
-}
+.status-msg { margin-top: 16px; padding: 14px 20px; border-radius: 10px; font-size: 14px; line-height: 1.6; display: none; animation: fadeUp 0.4s ease-out; }
+.status-msg.success { display: block; background: rgba(0,232,157,0.08); border: 1px solid rgba(0,232,157,0.2); color: var(--accent-green); }
+.status-msg.error { display: block; background: rgba(255,71,87,0.08); border: 1px solid rgba(255,71,87,0.2); color: var(--danger); }
+.status-msg.loading { display: block; background: var(--accent-amber-dim); border: 1px solid rgba(240,165,0,0.2); color: var(--accent-amber); }
 
-.status-msg.success {
-  display: block;
-  background: rgba(0,232,157,0.08);
-  border: 1px solid rgba(0,232,157,0.2);
-  color: var(--accent-green);
-}
+.page-footer { margin-top: 56px; padding-top: 24px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.5px; animation: fadeUp 0.8s ease-out 0.6s both; }
 
-.status-msg.error {
-  display: block;
-  background: rgba(255,71,87,0.08);
-  border: 1px solid rgba(255,71,87,0.2);
-  color: var(--danger);
-}
-
-.status-msg.loading {
-  display: block;
-  background: var(--accent-amber-dim);
-  border: 1px solid rgba(240,165,0,0.2);
-  color: var(--accent-amber);
-}
-
-/* === FOOTER === */
-.page-footer {
-  margin-top: 56px;
-  padding-top: 24px;
-  border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 12px;
-  color: var(--text-muted);
-  font-family: 'JetBrains Mono', monospace;
-  letter-spacing: 0.5px;
-  animation: fadeUp 0.8s ease-out 0.6s both;
-}
-
-/* === ANIMATIONS === */
-@keyframes fadeUp {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
-/* === SCROLLBAR === */
+@keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }
+
+/* === 新增：AI 回饋卡片專用樣式 === */
+.ai-feedback-card {
+  display: none; /* 預設隱藏，成功後透過 JS 顯示 */
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 36px 32px;
+  margin-top: 32px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.8s ease-out both;
+}
+.ai-feedback-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px; height: 100%;
+  background: linear-gradient(180deg, #7c8cf8, var(--accent-green));
+  border-radius: 4px 0 0 4px;
+}
+.ai-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #7c8cf8;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.ai-label::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: #7c8cf8;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #7c8cf8;
+  animation: pulse 2s infinite;
+}
+.ai-content {
+  font-family: 'Noto Sans TC', sans-serif;
+  font-size: 15px;
+  line-height: 1.8;
+  color: var(--text-primary);
+  white-space: pre-wrap; /* 保留 AI 回傳的換行格式 */
+}
 </style>
 </head>
 <body>
 
 <div class="container">
 
-  <!-- HEADER -->
   <header class="header">
     <div class="header-tag">科學論證評量 · CER Framework</div>
     <h1>台灣能源政策議題</h1>
     <p class="subtitle">閱讀以下背景資料，運用 CER 框架提出你的論點</p>
   </header>
 
-  <!-- PASSAGE -->
-  <article class="passage-card">
+  <article class="passage-card" id="passageContext">
     <div class="passage-label">背景資料 Background</div>
     <div class="passage-text">
       <p>在2025年，台灣的能源組成滿足國家能源需求所使用的不同能源來源的分佈，包含了來自核能的約80%，以及來自可再生能源和其他能源的約20%（約略的比例）。台灣在能源供應上高度依賴核能發電，作為穩定且大規模的基載電力來源。同時，台灣也致力於推動能源轉型，加速發展可再生能源，以達成減少溫室氣體排放和實現碳中和的國際目標。</p>
@@ -490,15 +206,13 @@ body::after {
     </div>
   </article>
 
-  <!-- QUESTION -->
-  <div class="question-card">
+  <div class="question-card" id="questionContext">
     <div class="q-icon">Q</div>
     <p class="q-text">
       鑑於應對氣候變遷，你是否支持將「以核能發電作為主要能源來源」的能源政策？請使用 <strong>CER（Claim, Evidence, Reasoning）</strong>框架來提出你的論點，清楚說明你的立場、支持證據與推理過程。
     </p>
   </div>
 
-  <!-- CER GUIDE -->
   <div class="cer-guide">
     <div class="cer-item">
       <div class="cer-letter">C</div>
@@ -517,7 +231,6 @@ body::after {
     </div>
   </div>
 
-  <!-- RESPONSE FORM -->
   <form id="responseForm" class="response-section" autocomplete="off">
 
     <div class="student-info">
@@ -552,6 +265,11 @@ body::after {
     <div class="status-msg" id="statusMsg"></div>
   </form>
 
+  <div id="aiFeedbackCard" class="ai-feedback-card">
+    <div class="ai-label">AI 教學助手回饋 AI Feedback</div>
+    <div class="ai-content" id="aiFeedbackContent">正在分析你的回答...</div>
+  </div>
+
   <footer class="page-footer">
     Energy Policy Assessment · CER Argumentation · 2025
   </footer>
@@ -582,6 +300,8 @@ setInterval(updateTime, 1000);
 const form = document.getElementById('responseForm');
 const submitBtn = document.getElementById('submitBtn');
 const statusMsg = document.getElementById('statusMsg');
+const aiFeedbackCard = document.getElementById('aiFeedbackCard');
+const aiFeedbackContent = document.getElementById('aiFeedbackContent');
 
 function showStatus(type, message) {
   statusMsg.className = 'status-msg ' + type;
@@ -595,14 +315,20 @@ form.addEventListener('submit', async (e) => {
   const sid = document.getElementById('studentId').value.trim();
   const response = textarea.value.trim();
 
+  // 抓取頁面上的背景資料與題目
+  const passageContext = document.getElementById('passageContext').innerText;
+  const questionContext = document.getElementById('questionContext').innerText;
+  const fullContext = `【背景資料】\n${passageContext}\n\n【題目】\n${questionContext}`;
+
   if (!name || !sid || !response) {
     showStatus('error', '請填寫所有欄位後再提交。');
     return;
   }
 
   submitBtn.disabled = true;
-  submitBtn.textContent = '提交中…';
-  showStatus('loading', '正在傳送你的回答，請稍候…');
+  submitBtn.textContent = '提交中與產生回饋…';
+  showStatus('loading', '正在傳送你的回答並請求 AI 分析，請稍候…');
+  aiFeedbackCard.style.display = 'none';
 
   try {
     const res = await fetch('/api/submit', {
@@ -612,6 +338,7 @@ form.addEventListener('submit', async (e) => {
         studentName: name,
         studentId: sid,
         response: response,
+        context: fullContext, // 將題幹一併送到後端給 AI 參考
         timestamp: new Date().toISOString()
       })
     });
@@ -619,7 +346,14 @@ form.addEventListener('submit', async (e) => {
     const data = await res.json();
 
     if (res.ok && data.success) {
-      showStatus('success', '提交成功！你的回答已記錄。感謝你的作答。');
+      showStatus('success', '提交成功！你的回答已記錄。請參考下方的 AI 回饋。');
+      
+      // 顯示 AI 回饋
+      aiFeedbackContent.textContent = data.aiFeedback || 'AI 暫時無法提供回饋，但您的答案已成功記錄。';
+      aiFeedbackCard.style.display = 'block';
+      aiFeedbackCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      // 重置表單 (保留 AI 視窗讓學生看)
       form.reset();
       charCount.textContent = '0 字';
       charCount.className = 'char-count';
