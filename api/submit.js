@@ -55,11 +55,13 @@ module.exports = async function handler(req, res) {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${process.env.AI_KEY}`,
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'HTTP-Referer': 'https://vercel.com', // 建議加入以符合 OpenRouter 規範
+          'X-Title': 'CER Feedback System'
         },
         body: JSON.stringify({
-          // 指定有效的 OpenRouter 免費模型
-          model: 'google/gemini-2.0-flash-lite-preview-02-05:free', 
+          // 修正為目前 OpenRouter 穩定的免費模型代號
+          model: 'google/gemma-2-9b-it:free', 
           messages: [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: userPrompt }
@@ -72,12 +74,14 @@ module.exports = async function handler(req, res) {
       if (aiData.choices && aiData.choices.length > 0) {
         aiFeedback = aiData.choices[0].message.content; // 成功取得 AI 文字！
       } else {
+        // 如果 OpenRouter 回傳了錯誤訊息，直接顯示出來以便偵錯
         console.error('OpenRouter 回應異常:', aiData);
-        aiFeedback = "AI 回應格式異常，請老師檢查 Vercel Logs。";
+        const errorMsg = aiData.error ? aiData.error.message : "格式異常";
+        aiFeedback = `AI 回饋暫時無法生成（原因：${errorMsg}）。您的答案已成功記錄。`;
       }
     } catch (err) {
       console.error('OpenRouter 請求失敗:', err);
-      aiFeedback = "產生 AI 回饋時發生連線錯誤。";
+      aiFeedback = "產生 AI 回饋時發生連線錯誤，但您的答案已儲存。";
     }
   } else {
     aiFeedback = "系統未設定 AI_KEY，無法啟用 AI 助手。";
